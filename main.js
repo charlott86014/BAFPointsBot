@@ -32,7 +32,7 @@ client.points = new Enmap({name: "points"});
 
 client.on("ready", () => {
   // This event will run if the bot starts, and logs in, successfully.
-  console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
+  console.log(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
   let botstatus = fs.readFileSync('./bot-status.json');
   botstatus = JSON.parse(botstatus);
 
