@@ -558,7 +558,7 @@ fs.readdir('./commands/', async (err, files) => {
 });
 
 client.on('ready', async () => {
-  console.log(chalk.yellow(figlet.textSync('qbot', { horizontalLayout: 'full' })));
+  console.log(chalk.yellow(figlet.textSync('BAFPointsBot', { horizontalLayout: 'full' })));
 
   console.log(chalk.red(`Bot started!\n---\n`
   + `> Users: ${client.users.cache.size}\n`
