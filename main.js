@@ -18,7 +18,6 @@ let listener = app.listen(process.env.PORT, () => {
 });
 
 // start discord.js init
-const config = require("./config.json"); // See config.json below for example
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const roblox = require('noblox.js');
@@ -97,11 +96,11 @@ client.on("messageCreate", async messageCreate => {
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-  if (messageCreate.content.indexOf(config.prefix) !== 0) return;
+  if (messageCreate.content.indexOf(process.env.prefix) !== 0) return;
 
   // Also we use the config prefix to get our arguments and command:
   const args = messageCreate.content.split(/\s+/g);
-  const command = args.shift().slice(config.prefix.length).toLowerCase();
+  const command = args.shift().slice(process.env.prefix.length).toLowerCase();
 
   if(command === "points") {
 
