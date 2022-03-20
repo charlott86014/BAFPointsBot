@@ -20,14 +20,6 @@ async function getRankFromName(func_rankname, func_group){
 }
 
 exports.run = async (client, message, args) => {
-    if (message.guild.id !== process.env.ArmyGuildId) {
-        return message.channel.send({embeds: [{
-            color: 16711680,
-            description: "This command cannot be used in this group!",
-            author: {name: message.author.tag, icon_url: message.author.displayAvatarURL()}
-        }]});
-    }
-
     if(!message.member.roles.cache.some(role =>["Minister of Defence"].includes(role.name))){
         return message.channel.send({embeds: [{
             color: 16733013,
@@ -36,7 +28,7 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
-    let username = message.mentions.users.first();
+    let username = args[0];
     if(!username){
         return message.channel.send({embeds: [{
             color: 16733013,
@@ -45,7 +37,7 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
-    let rank = parseInt(args[1], 10);
+    let rank = Number(args[1]);
     let newrank;
     if(!rank){
         let midrank = args.slice(1).join(' ');
@@ -102,14 +94,15 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
+    let newRankName = await getRankName(Number(process.env.ArmyGroupId), id);
     message.channel.send({embeds: [{
         color: 9240450,
         description: `**Success!** Ranked ${username} to ${setRankResponse.name} (${setRankResponse.rank})`,
         author: {name: message.author.tag, icon_url: message.author.displayAvatarURL()}
     }]});
 
-    if(process.env.ArmyLogChannelId === 'false') return;
-    let logchannel = await message.guild.channels.cache.get(process.env.ArmyLogChannelId);
+    if(process.env.logchannelid === 'false') return;
+    let logchannel = await message.guild.channels.cache.get(process.env.logchannelid);
     logchannel.send({embeds: [{
         color: 2127726,
         description: `<@${message.author.id}> has ranked ${username} from ${rankNameInGroup} (${rankInGroup}) to ${setRankResponse.name} (${setRankResponse.rank}).`,
