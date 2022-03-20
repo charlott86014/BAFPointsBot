@@ -20,6 +20,14 @@ async function getRankFromName(func_rankname, func_group){
 }
 
 exports.run = async (client, message, args) => {
+    if (message.guild.id !== process.env.FPGuildId) {
+        return message.channel.send({embeds: [{
+            color: 16711680,
+            description: "This command cannot be used in this group!",
+            author: {name: message.author.tag, icon_url: message.author.displayAvatarURL()}
+        }]});
+    }
+
     if(!message.member.roles.cache.some(role =>["Minister of Defence"].includes(role.name))){
         return message.channel.send({embeds: [{
             color: 16733013,
@@ -28,7 +36,7 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
-    let username = args[0];
+    let username = message.mentions.users.first();
     if(!username){
         return message.channel.send({embeds: [{
             color: 16733013,
@@ -37,7 +45,7 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
-    let rank = Number(args[1]);
+    let rank = parseInt(args[1], 10);
     let newrank;
     if(!rank){
         let midrank = args.slice(1).join(' ');
@@ -94,15 +102,14 @@ exports.run = async (client, message, args) => {
         }]});
     }
 
-    let newRankName = await getRankName(Number(process.env.FPGroupId), id);
     message.channel.send({embeds: [{
         color: 9240450,
         description: `**Success!** Ranked ${username} to ${setRankResponse.name} (${setRankResponse.rank})`,
         author: {name: message.author.tag, icon_url: message.author.displayAvatarURL()}
     }]});
 
-    if(process.env.logchannelid === 'false') return;
-    let logchannel = await message.guild.channels.cache.get(process.env.logchannelid);
+    if(process.env.FPLogChannelId === 'false') return;
+    let logchannel = await message.guild.channels.cache.get(process.env.FPLogChannelId);
     logchannel.send({embeds: [{
         color: 2127726,
         description: `<@${message.author.id}> has ranked ${username} from ${rankNameInGroup} (${rankInGroup}) to ${setRankResponse.name} (${setRankResponse.rank}).`,
