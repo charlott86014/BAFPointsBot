@@ -16,27 +16,28 @@ exports.run = async (client, message, args) => {
         }
     );
 
+    let uName;
+    if (user.nickname) {   
+        uName = user.nickname
+    } else {
+        uName = user.user.username
+    }
+
+    try {
+        id =  await roblox.getIdFromUsername(uName);
+    } catch(err) {
+        console.log(('An error has occurred: ' + err));
+        return message.channel.send({embeds: [{
+            color: 16711680,
+            description: `An error has occurred. User not found. Try using the !getrole command.`,
+            author: {name: message.author.tag, icon_url: message.author.displayAvatarURL}
+        }]});
+    }
+
     groupGetter = async(groupid) => {
-        let uName;
-        if (user.nickname) {   
-            uName = user.nickname
-        } else {
-            uName = user.user.username
-        }
         async function getRankName(func_group, func_user){
             let rolename = await roblox.getRankNameInGroup(func_group, func_user);
             return rolename;
-        }
-
-        try {
-            id =  await roblox.getIdFromUsername(uName);
-        } catch(err) {
-            console.log(('An error has occurred: ' + err));
-            return message.channel.send({embeds: [{
-                color: 16711680,
-                description: `An error has occurred. User not found. Try using the !getrole command.`,
-                author: {name: message.author.tag, icon_url: message.author.displayAvatarURL}
-            }]});
         }
         
         let rankInGroup = await getRankName(Number(groupid), id);
@@ -98,8 +99,10 @@ exports.run = async (client, message, args) => {
         (async () => {
             const embed = new MessageEmbed()
                 .setColor('#F5CD30')
-                .setAuthor({name: message.author.tag, icon_url: message.author.displayAvatarURL()})
+                .setAuthor({name: message.author.tag, iconURL: message.author.displayAvatarURL()})
                 .setDescription( `**Here are ${user.toString()}'s points:**\n`)
+                .setThumbnail(`https://www.roblox.com/headshot-thumbnail/image?userId=${id}&width=420&height=420&format=png`)
+                .setTimestamp()
 
             if(user.roles.cache.some(role => role.name === 'Belgian Army')){
                 embed.addField(`Belgian Army Points: ${apointsamount}`, `Role: ${await groupGetter(process.env.ArmyGroupId) }`,false);
