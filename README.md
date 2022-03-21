@@ -3,7 +3,7 @@ This bot was designed to manage a roblox group on a discord server by adding/rem
 I started working on this bot a few years ago but didn't have any coding experience (you might find some bugs because I don't have much experience with JavaScript), but I intend to work on it in my spare time.
 
 # HOW TO USE 
-Personally, I'm hosting this bot on <a href="https://www.heroku.com/">Heroku</a>; also, I'm using the JawsDB Maria add-on to create the database. You can host it wherever you want (even on your own device, but make sure to install <a href="https://nodejs.org/">Node.js</a> first and the relative packages indicated on the <b>#PACKAGES USED</b> section; you can then start the bot with the command <code>node main.js</code> from your terminal).  
+Personally, I'm hosting this bot on <a href="https://www.heroku.com/">Heroku</a>; also, I'm using the JawsDB Maria add-on to create the database. You can host it wherever you want (even on your own device, but make sure to install <a href="https://nodejs.org/">Node.js</a> first and the relative packages indicated on the [PACKAGES USED](#packages-used) section; you can then start the bot with the command <code>node main.js</code> from your terminal).  
 There are several env variables to set; to do so, you need fill out the.env.example file I supplied to the repository (be sure to remove the .example part).
 
 # PACKAGES USED
