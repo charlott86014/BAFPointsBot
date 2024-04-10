@@ -1,5 +1,6 @@
 <h1>DEPRECATED</h1>
 <img alt="Static Badge" src="https://img.shields.io/badge/maintenance-deprecated-orange">
+I might come back to working on it in the future. The whole bot would have to be rewrited because of Discord's changes to their APIs.
     
 # BAFPointsBot 
 This bot was designed to manage a roblox group on a discord server by adding/removing points and automatically promoting/demoting players by saving all data in a database (all the commands are created with the intention to work with my group, but you are free to change it for your own needs).  
